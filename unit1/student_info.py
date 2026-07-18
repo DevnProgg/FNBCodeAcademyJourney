@@ -48,34 +48,35 @@ def collect_student_info() -> dict[str, str | int | float] | None:
         if not first_name:
             print("Error: Make sure you enter full name")
             clear_screen()
-            break
+            continue
 
         surname = input("Enter your surname: ")
         if not surname:
             print("Error: Make sure you enter surname")
             clear_screen()
-            break
+            continue
         try:
             age = int(input("Enter your age: "))
         except Exception as exc:
             print("Error: Make sure you enter age")
             logger.error(exc)
             clear_screen()
-            break
+            continue
         try:
             favourite_number = float(input("Enter your favourite number: "))
         except Exception as exc:
             print("Error: Make sure you enter favourite number ")
             logger.error(exc)
             clear_screen()
-            break
+            continue
 
         age_in_months = age * 12
         return {
             "first_name": first_name,
             "surname": surname,
-            "age": age_in_months,
-            "favourite_number": favourite_number
+            "age": age,
+            "age_in_months": age_in_months,
+            "favourite_number": favourite_number.__round__(2)
         }
     return None
 
@@ -84,10 +85,11 @@ def display_student_info(student_info: dict[str, str | int | float]) -> None:
     print("|---------------------------------------------| Student Information Card |----------------------------------------| ")
     card_spacer()
 
+    info_field(f"Welcome, {str(student_info.get('first_name', "404 - Not Found")).upper().title()} + {str(student_info.get('surname', "404 - NotFound")).upper().title()}!")
     info_field(f"First Name -> {student_info.get("first_name", "404 - NotFound")} Type {type(student_info.get("first_name"))}")
     info_field(f"Surname -> {student_info.get("surname", "404 - NotFound")} Type {type(student_info.get("surname"))}")
-    info_field(f"Age -> {student_info.get("age", "404 - NotFound")} Type {type(student_info.get("age"))}")
-    info_field(f"Fav Number -> {student_info.get("favourite_number", "404 - Not Found")} Type {type(student_info.get("favourite number"))}")
+    info_field(f"Age -> {student_info.get("age_int_months", "404 - NotFound")} Type {type(student_info.get("age_in_months"))}")
+    info_field(f"Fav Number -> {student_info.get("favourite_number", "404 - Not Found")} Type {type(student_info.get("favourite_number"))}")
     card_spacer()
     print("|-----------------------------------------------------------------------------------------------------------------| ")
 
