@@ -22,6 +22,8 @@ def collect_secret() -> str:
     return "Something went wrong when collecting your secret password"
 
 def sanitize_password(password: str) -> str:
+    if not password.strip():
+        print("Password cannot be empty!")
     return password.strip()
 
 def give_hints(password: str) -> tuple[str, str]:
@@ -33,7 +35,7 @@ def main() -> None:
     hints = give_hints(password)
 
     print(f"Your Password hint: It starts with {hints[0].upper()} and ends with {hints[1].upper()}")
-    print(f"Your password is {hints[0]}{'*' * len(password[1:len(password) - 2])}{hints[1]}")
+    print(f"Your password is {hints[0]}{'*' * (len(password)-2)}{hints[1]}")
 
 if __name__ == "__main__":
     main()
