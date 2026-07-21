@@ -49,22 +49,22 @@ def collect_operants() -> tuple[float, float]:
 
     return operand1, operand2
 
-def calculator(operand1: float, operand2: float) -> dict[str, float|str]:
+def calculator(operand1: float, operand2: float) -> dict[str, float| None]:
     return {
-        "addition": operand1 + operand2,
-        "subtraction": operand1 - operand2,
-        "multiplication": operand1 * operand2,
-        "division" : operand1 / operand2 if operand2 != 0 else "Cannot divide by zero",
-        "floor division": operand1 // operand2,
-        "modulo": operand1 % operand2,
+        "addition": round(operand1 + operand2, 2),
+        "subtraction": round(operand1 - operand2,2),
+        "multiplication": round(operand1 * operand2,2),
+        "division" : round(operand1 / operand2,2) if operand2 != 0 else None,
+        "floor division": round(operand1 // operand2,2) if operand2 != 0 else None,
+        "modulo": round(operand1 % operand2, 2) if operand2 != 0 else None,
     }
 
-def display(result: dict[str, float|str]) -> None:
+def display(result: dict[str, float| None]) -> None:
     decorator_length = 13
     header = f"|{'*' * decorator_length }| Results |{'*' * decorator_length }|"
     print(header)
     for key, value in result.items():
-        print(f"|{' ' * (int(decorator_length / 2))} -> {key.title()}: {round(int(value), 2) if type(value)  != str else value } |")
+        print(f"|{' ' * (int(decorator_length / 2))} -> {key.title()}: {value if value is not None else 'Could Not be Calculated!'} |")
     print(f"|{'_' * (len(header) - 2)}|")
 
 def main() -> None:
