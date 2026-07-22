@@ -72,4 +72,5 @@ def main() -> None:
     display(calculator(operands[0], operands[1]))
 
 if __name__ == "__main__":
+    print(None == False)
     main()
